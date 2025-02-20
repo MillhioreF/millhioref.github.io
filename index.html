@@ -1,0 +1,213 @@
+<html>
+<head>
+  <script type="text/javascript">
+    function ValidateWidth() {
+        Validate("widthnum");
+    }
+  
+    function ValidateLength() {
+        Validate("lengthnum");
+    }
+    
+    function Validate(name) {
+        let id = name;
+        let trial = document.getElementById(id).value;
+        
+        trial = trial.replace('e','');
+        trial = parseInt(trial).toString();
+        trial = trial.replace('.','');
+        trial = trial.replace('-','');
+        trial = trial.replace('e','');
+        
+        if (trial.length == 0 || trial == "NaN") trial = "0";
+        document.getElementById(id).value = trial;
+        
+        return;
+    }
+
+    function Calculate() {
+        ValidateWidth();
+        ValidateLength();
+        
+        let fractionArray = [0, 0.25, 0.375, 0.5, 0.75];
+        let widthFraction = document.querySelector('#width');
+        let lengthFraction = document.querySelector('#length');
+        
+        let squareInches = (Number(document.getElementById("widthnum").value) + fractionArray[widthFraction.value]) * (Number(document.getElementById("lengthnum").value) + fractionArray [lengthFraction.value]);
+        if (squareInches == 0 || squareInches == "NaN") {
+            document.getElementById("weightfield").value = "0";
+            return;
+        }
+        
+        squareFeet = squareInches / 144;
+        let pbcArray = [5.635, 7.885, 4.428];
+        let staveArray = [5.2, 7.45, 4.085];
+        let timberArray = [6.825, 9.075, 5.360];
+        let coreArray = [pbcArray, staveArray, timberArray];
+
+        let coreType = document.querySelector('input[name="core"]:checked').value;
+        let thickness = document.querySelector('input[name="thick"]:checked').value;
+
+        let leadAdder = document.querySelector('#adder');
+        let adderWeight = 4.16 * squareFeet * leadAdder.value;
+
+        let finalWeight = Math.round((squareFeet * coreArray[coreType][thickness]) + adderWeight);
+        document.getElementById("weightfield").value = finalWeight;
+    }
+  </script>
+</head>
+<form style="margin-left: auto; margin-right: auto; width: 20em; border: solid 3px #1e90ff; border-radius:5px; padding:2px; margin: 2rem auto; width:100%; max-width:600px; line-height: 2em;" method="post" class="weightcalc">
+  <div class="cal_container">
+    <div class="cal_instructions" style="line-height: 1.5em;">
+      <ul>
+        <li>
+          Enter the door size (in inches) and select your core and thickness options.<br>
+          The approximate weight of the door (in pounds) will be shown.
+        </li>
+        <li>
+          Please type in <b>whole numbers</b> only.<br>
+          Use the dropdown on the right to select fractions of inches.
+        </li>
+      </ul>
+    </div>
+    <table id="widthlength" style="margin-left: auto; margin-right: auto; width: 20em;">
+      <tbody>
+        <tr data-role="none">
+        </tr>
+        <tr>
+          <td>
+            Door Width:
+          </td>
+          <td>
+            <input type="number" id="widthnum" onchange="ValidateWidth();" style="width: 7em" />
+            <select name="width" id="width" style="width: 3.5em">
+              <option value="0" selected>-</option>
+              <option value="1">1&#47;4</option>
+              <option value="2">3&#47;8</option>
+              <option value="3">1&#47;2</option>
+              <option value="4">3&#47;4</option>
+            </select> inches
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Door Length:
+          </td>
+	  <td>
+            <input type="number" id="lengthnum" onchange="ValidateLength();" style="width: 7em" />
+            <select name="length" id="length" style="width: 3.5em">
+              <option value="0" selected>-</option>
+              <option value="1">1&#47;4</option>
+              <option value="2">3&#47;8</option>
+              <option value="3">1&#47;2</option>
+              <option value="4">3&#47;4</option>
+            </select> inches
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="radios" style="margin-left: auto; margin-right: auto; width: 20em;>
+      <tbody>
+        <tr data-role="none">
+        </tr>
+        <tr>
+          <fieldset style="margin-left: auto; margin-right: auto; width: 20em;">
+            <legend>
+              Door Core:
+            </legend>
+            <div style="line-height: 1.3em; margin-left: auto; margin-right: auto; width: 20em;">
+              <span style="display: inline-block; width: 5.5em;">
+                <input type="radio" id="pbc" name="core" value="0" checked />
+                <label for="pbc">
+                  PBC
+                </label>
+              </span>
+              <span style="display: inline-block; width: 5.5em;">
+                <input type="radio" id="stave" name="core" value="1" />
+                <label for="stave">
+                  Stave
+                </label>
+              </span>
+              <span style="display: inline-block; width: 7em;">
+                <input type="radio" id="timber" name="core" value="2" />
+                <label for="timber">
+                  Timberstrand
+                </label>
+              </span>
+            </div>
+          </fieldset>
+        </tr>
+        <tr>
+          <fieldset style="margin-left: auto; margin-right: auto; width: 20em;">
+            <legend>
+              Door Thickness:
+            </legend>
+            <div style="line-height: 1.3em; margin-left: auto; margin-right: auto; width: 20em;">
+              <span style="display: inline-block; width: 5.5em;">
+                <input type="radio" id="134" name="thick" value="0" checked />
+                <label for="134">
+                  1-3&#47;4&#34;
+                </label>
+              </span>
+              <span style="display: inline-block; width: 5.5em;">
+                <input type="radio" id="214" name="thick" value="1" />
+                <label for="214">
+                  2-1&#47;4&#34;
+                </label>
+              </span>
+              <span style="display: inline-block; width: 7em;">
+                <input type="radio" id="138" name="thick" value="2" />
+                <label for="138">
+                  1-3&#47;8&#34;
+                </label>
+              </span>
+            </div>
+          </fieldset>
+        </tr>
+      </tbody>
+    </table>
+    <table id="lead" style="margin-left: auto; margin-right: auto; width: 20em;>
+      <tbody>
+        <tr data-role="none">
+        </tr>
+        <tr>
+          <td>
+            Lead Adder:
+          </td>
+          <td>
+            <select name="adder" id="adder" style="width: 4em; margin-right: 9em;">
+              <option value="0" selected>No</option>
+              <option value="1">Yes</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="calc" style="margin-left: auto; margin-right: auto; width: 20em; line-height: 3em;>
+      <tbody>
+        <tr data-role="none">
+        </tr>
+        <tr>
+          <td class="calcbutton" style="margin-left: auto; margin-right: auto; width: 20em; padding-top: 1em; padding-bottom: 2em;">
+            <input class="button" style="width:140px; margin-left: 7em; margin-right: auto; line-height: 3em;" type="button" id="postcalculate" value="Calculate" onclick="Calculate();" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="result" style="margin-left: auto; margin-right: auto; width: 20em;>
+      <tbody>
+        <tr data-role="none">
+        </tr>
+        <tr>
+          <td id="weight">
+            Door Weight:
+          </td>
+          <td>
+            <input type="text" id="weightfield" disabled="" style="background-color:#eeeeee; color:#000; width: 7em;" />‍ pounds
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
+</html>
