@@ -16,10 +16,12 @@
         trial = trial.replace('e','');
         trial = parseInt(trial).toString();
         trial = trial.replace('.','');
-        trial = trial.replace('-','');
-        trial = trial.replace('e','');
         
-        if (trial.length == 0 || trial == "NaN") trial = "0";
+        if (trial.length == 0 || trial == "NaN" || trial.indexOf('-') > -1 || trial.indexOf('e') > -1) {
+            trial = "0";
+        }
+        if (Number(trial) >= 168) trial = 168;
+        if (Number(trial) <= 0) trial = 0;
         document.getElementById(id).value = trial;
         
         return;
