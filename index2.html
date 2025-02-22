@@ -1,0 +1,685 @@
+<html class="k-webkit k-webkit90"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style> 
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+ <title>FORMS, Nightingale Doors</title> 
+ <meta name="DESCRIPTION" content="Detail sheet for customer to enter door details.  Door weight calculator"> 
+ <meta name="KEYWORDS" content="Weight of flush doors, Weight Architectural Doors"> 
+ <link href="site.css" rel="stylesheet" type="text/css"> 
+ <link href="//fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Light|Open+Sans+Bold" rel="stylesheet" type="text/css"> 
+ <link rel="stylesheet" type="text/css" href="//assets.neo.registeredsite.com/libs/libs.css?ct=1591582402063"> 
+ <link rel="stylesheet" type="text/css" href="//assets.neo.registeredsite.com/plugins/neo.css?ct=1591582402063"> 
+ <script type="text/javascript">
+  var builderSettings = {
+    appRoot: '//app.neo.registeredsite.com/neo/',
+    appRelativePath: '/neo',
+    assetsRoot: '//assets.neo.registeredsite.com',
+    repositoryRoot: '//repository.neo.registeredsite.com',
+    spRoot: '//repository.neo.registeredsite.com/starting-points',
+    usersRoot: '//users.neo.registeredsite.com',
+    sitesearchUrl: '//sitesearch.services.matrixbuilder.com/sitesearch/search',
+    siteDomain: '000lt76.rcomhost.com',
+    isBuilder : false,
+    isPreview : false
+  };
+  function ValidateWidth() {
+      Validate("widthnum");
+  }
+  
+  function ValidateLength() {
+      Validate("lengthnum");
+  }
+  
+  function Validate(name) {
+      let id = name;
+      let trial = document.getElementById(id).value;
+      
+      trial = trial.replace('e','');
+      trial = parseInt(trial).toString();
+      trial = trial.replace('.','');
+      
+      if (trial.length == 0 || trial == "NaN" || trial.indexOf('-') > -1 || trial.indexOf('e') > -1) {
+          trial = "0";
+      }
+      if (Number(trial) >= 168) trial = 168;
+      if (Number(trial) <= 0) trial = 0;
+      document.getElementById(id).value = trial;
+      
+      return;
+  }
+  
+  function Calculate() {
+      ValidateWidth();
+      ValidateLength();
+      
+      let fractionArray = [0, 0.25, 0.375, 0.5, 0.75];
+      let widthFraction = document.querySelector('#width');
+      let lengthFraction = document.querySelector('#length');
+      
+      let squareInches = (Number(document.getElementById("widthnum").value) + fractionArray[widthFraction.value]) * (Number(document.getElementById("lengthnum").value) + fractionArray [lengthFraction.value]);
+      if (squareInches == 0 || squareInches == "NaN") {
+          document.getElementById("weightfield").value = "0";
+          return;
+      }
+      
+      squareFeet = squareInches / 144;
+      let pbcArray = [5.635, 7.885, 4.428];
+      let staveArray = [5.2, 7.45, 4.085];
+      let timberArray = [6.825, 9.075, 5.360];
+      let coreArray = [pbcArray, staveArray, timberArray];
+      
+      let coreType = document.querySelector('input[name="core"]:checked').value;
+      let thickness = document.querySelector('input[name="thick"]:checked').value;
+      
+      let leadAdder = document.querySelector('#adder');
+      let adderWeight = 4.16 * squareFeet * leadAdder.value;
+      
+      let finalWeight = Math.round((squareFeet * coreArray[coreType][thickness]) + adderWeight);
+      document.getElementById("weightfield").value = finalWeight;
+  }
+</script> 
+ <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans"> 
+</head><body class="neo-publish">
+ <!-- New builder template -->
+ <div id="includes" style="display: none">
+  <script type="text/javascript" src="//assets.neo.registeredsite.com/libs/libs.js?ct=1591582402063"></script>
+  <script type="text/javascript" src="//assets.neo.registeredsite.com/libs/tinymce/4.1.7/tinymce.min.js?ct=1591582402063"></script>
+  <div class="sitesearch-plugin-inner"> 
+   <div class="sitesearch-ng" data-ng-controller="neo.SiteSearchPlugin.ngPluginController"> 
+    <div class="ss-container ss-style-1 sitesearch-id-1" style="width:100%"> 
+     <form> 
+      <span class="ss-loading" style="display: none;"></span> 
+      <input class="ss-text" type="text" value="" placeholder="Search ..."> 
+      <input class="ss-submit" type="submit" value=""> 
+     </form> 
+    </div> 
+   </div> 
+  </div> 
+   
+  <script type="text/webcom-template" id="form-plugin-inner">
+    <div class="form-ng remove-on-save">
+      <div id="{{FormId}}">inject webcom-form here</div>
+    </div>
+</script> 
+  <div class="text-plugin-inner"> 
+   <div class="text-ng tiny text-plugin" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();" data-module-class="neo.TextModule"></div> 
+  </div>
+  <div class="map-plugin-inner"> 
+   <div class="map-ng remove-on-save"> 
+    <div class="mapPlugin"> 
+     <div class="neo-map-address-show"></div> 
+     <div class="neo-mapquest"></div> 
+     <div class="neo-map-direction"></div> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="share-plugin-inner"> 
+   <div class="fb-share-button-placeholder" data-type="button"></div> 
+  </div> 
+  <div class="google-share-plugin-inner"> 
+   <div class="gplus-data" data-action="share"> 
+    <div class="g-plus" data-action="share"></div> 
+   </div> 
+  </div> 
+  <div class="google-plusone-plugin-inner"> 
+   <div class="gplusone-data"> 
+    <div class="g-plusone"></div> 
+   </div> 
+  </div> 
+  <div class="tap-plugin-inner"> 
+   <div class="product-data"> 
+    <!-- The product element will be here --> 
+   </div> 
+  </div> 
+  <script type="text/javascript" src="//assets.neo.registeredsite.com/plugins/neo.js?ct=1591582402063"></script>
+ </div><div id="neo-sitesearch-result-modal" class="modal-wrapper modal-effect"> 
+   <div class="modal-window"> 
+    <div class="modal-top">
+     Search Results
+    </div> 
+    <div class="modal-bottom"></div> 
+    <div class="modal-x" data-ng-click="closeSearchResult()"></div> 
+   </div> 
+  </div><div class="ss-modal-overlay"></div>
+ <!--End Includes-->
+ <div id="canvas" data-ng-app="webcomApp" class="colad default sp-supports-nav2 pagebg ng-scope" style="left: auto; min-height: 1591px;"> 
+  <div id="top-area" style="height: 20px; width: 960px;" class=""> 
+  </div> 
+  <div id="page-wrapper"> 
+   <div class="global-region top" id="header"> 
+    <div class="global-region-inner" style="position: relative; margin: 0px auto; height: 192px; width: 962px;"> 
+     <div class="neo-asset text-plugin" style="right: 38px; z-index: 352; width: 208px; position: absolute; left: 746px; height: 24px; top: 13px;" data-module-class="neo.TextModule" id="asset-1523891011469" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#bbbaba&quot;,&quot;borderLeftColor&quot;:&quot;#bbbaba&quot;,&quot;borderBottomColor&quot;:&quot;#bbbaba&quot;,&quot;borderRightColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;NaNpx NaNpx 0 0 undefined&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:47}" data-region="header" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();"> 
+      <div class="neo-asset-inner right-align mCS_destroyed" style="background-color: rgba(255, 255, 255, 0); position: relative; border-color: rgb(187, 186, 186); opacity: 0.47; border-style: none; background-image: none;" id="asset-1523891011469-neo-asset-inner" spellcheck="false"> 
+       <h4 class="home-alt-heading color9"><span style="font-size: 16px; color: #1646f0;">Call Us: 972-875-1134</span></h4> 
+      </div> 
+     </div> 
+     <div class="neo-asset image-plugin" style="position: absolute; left: 426px; width: 79px; height: 121px; z-index: 350; top: 8px;" id="asset-1524172923424" data-module-class="neo.ImageModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:null,&quot;borderBottomStyle&quot;:null,&quot;borderLeftStyle&quot;:null,&quot;borderRightStyle&quot;:null,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#333333&quot;,&quot;borderLeftColor&quot;:&quot;#333333&quot;,&quot;borderBottomColor&quot;:&quot;#333333&quot;,&quot;borderRightColor&quot;:&quot;#333333&quot;,&quot;borderAllColor&quot;:&quot;#333333&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:128,&quot;backgroundShadowOffset&quot;:0}" data-original-src="http://app.neo.registeredsite.com/neo/asset/image?contentType=image/gif&amp;fileName=Logo.gif&amp;accountId=377727" data-new-scale="0.91" data-readonly-scale="0.91" data-bmp-x="43" data-bmp-y="55" data-readonly-x="43" data-readonly-y="55" data-bmp-rotation="0" data-flipped-vertical="false" data-flipped-horizontal="false" data-edited-image-src="temp/asset-1524172923424-edited-10.png" data-symlink-name="asset-1524172923424.png" data-original-width="77" data-original-height="119" data-image-properties="{&quot;name&quot;:&quot;&quot;,&quot;keywords&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;imageFx&quot;:{&quot;brightness&quot;:0,&quot;contrast&quot;:0,&quot;hue&quot;:0,&quot;saturation&quot;:0,&quot;scale&quot;:0.91,&quot;red&quot;:255,&quot;green&quot;:255,&quot;blue&quot;:255,&quot;rotate&quot;:0,&quot;flippedHorizontally&quot;:false,&quot;flippedVertically&quot;:false}}" data-region="header"> 
+      <div class="neo-asset-inner" style="background-color: rgba(255, 255, 255, 0); opacity: 1; border-style: none; border-color: rgb(51, 51, 51); background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"> 
+       <img src="assets/asset-1524172923424.png?v=0.5603757057919259" alt="" style="display: inline; width: 77px; height: 119px;"> 
+      </div> 
+     </div> 
+     <div class="navigation-2-plugin neo-asset" id="asset-1523914500404" data-module-class="neo.Navigation2Module" style="z-index: 399; position: absolute; left: 4px; width: 952px; height: 23px; top: 166px;" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:1,&quot;borderTopWidth&quot;:1,&quot;borderBottomWidth&quot;:1,&quot;borderLeftWidth&quot;:1,&quot;borderRightWidth&quot;:1,&quot;borderTopColor&quot;:&quot;rgba(64,49,163,1)&quot;,&quot;borderLeftColor&quot;:&quot;rgba(64,49,163,1)&quot;,&quot;borderBottomColor&quot;:&quot;rgba(64,49,163,1)&quot;,&quot;borderRightColor&quot;:&quot;rgba(64,49,163,1)&quot;,&quot;borderAllColor&quot;:&quot;rgba(64,49,163,1)&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(235,236,242,1)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" data-region="header"> 
+      <style id="custom-style-for-asset-1523914500404">   
+                              /****************/
+                              /* neo main nav */
+                              /****************/
+                              #asset-1523914500404.main-nav-fixed-plugin .neo-asset-inner > ul > li {
+                                width: 130px;
+                              }
+                              #asset-1523914500404 .neo-asset-inner > ul > li {
+                                padding-top: 0;
+                                padding-right: 0;
+                                padding-bottom: 0;
+                                padding-left: 10px;
+                                margin-right: 25px;
+                                margin-bottom: 3px;
+                                background-color: rgba(0, 0, 0, 0);
+                                font-style: normal;
+                                font-weight: bold;
+                                font-size: 14px;
+                                font-family: "Open Sans", sans-serif;
+                                text-align: center;
+
+                                border-left-color: rgb(51, 51, 51);
+                                border-left-style: none;
+                                border-left-width: 0;
+                                border-right-color: rgb(51, 51, 51);
+                                border-right-style: none;
+                                border-right-width: 0;
+                                border-bottom-color: rgb(51, 51, 51);
+                                border-bottom-style: none;
+                                border-bottom-width: 0;
+                                border-top-color: rgb(51, 51, 51);
+                                border-top-style: none;
+                                border-top-width: 0;
+                                border-top-left-radius:0;
+                                border-top-right-radius:0;
+                                border-bottom-left-radius:0;
+                                border-bottom-right-radius:0;
+
+                                -moz-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                -webkit-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                              }
+                              #asset-1523914500404 .neo-asset-inner > ul > li > a {
+                                color: rgb(91, 96, 95);
+                              }
+                              #asset-1523914500404 .neo-asset-inner > ul > li.k-state-hover {
+                                padding-top: 0;
+                                padding-right: 0;
+                                padding-bottom: 0;
+                                padding-left: 0;
+                                background-color: rgb(245, 237, 179);
+                                font-style: normal;
+                                font-weight: bold;
+                                font-size: 14px;
+                                font-family: "Open Sans", sans-serif;
+                                text-align: center;
+
+                                border-left-color: rgb(46, 179, 166);
+                                border-left-style: none;
+                                border-left-width: 0;
+                                border-right-color: rgb(46, 179, 166);
+                                border-right-style: none;
+                                border-right-width: 0;
+                                border-bottom-color: rgb(46, 179, 166);
+                                border-bottom-style: none;
+                                border-bottom-width: 0;
+                                border-top-color: rgb(46, 179, 166);
+                                border-top-style: none;
+                                border-top-width: 0;
+                                border-top-left-radius:0;
+                                border-top-right-radius:0;
+                                border-bottom-left-radius:0;
+                                border-bottom-right-radius:0;
+
+                                -moz-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                -webkit-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                              }
+                              #asset-1523914500404 .neo-asset-inner > ul > li.k-state-hover > a {
+                                color: rgb(84, 177, 186);
+                              }
+                              #asset-1523914500404 .neo-asset-inner > ul > li.k-state-active {
+                                padding-top: 0;
+                                padding-right: 0;
+                                padding-bottom: 0;
+                                padding-left: 0;
+                                background-color: rgb(199, 219, 240);
+                                font-style: normal;
+                                font-weight: bold;
+                                font-size: 14px;
+                                font-family: "Open Sans", sans-serif;
+                                text-align: center;
+
+                                border-left-color: rgb(16, 196, 178);
+                                border-left-style: none;
+                                border-left-width: 0;
+                                border-right-color: rgb(16, 196, 178);
+                                border-right-style: none;
+                                border-right-width: 0;
+                                border-bottom-color: rgb(16, 196, 178);
+                                border-bottom-style: none;
+                                border-bottom-width: 0;
+                                border-top-color: rgb(16, 196, 178);
+                                border-top-style: none;
+                                border-top-width: 0;
+                                border-top-left-radius:0;
+                                border-top-right-radius:0;
+                                border-bottom-left-radius:0;
+                                border-bottom-right-radius:0;
+
+                                -moz-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                -webkit-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                              }
+                              #asset-1523914500404 .neo-asset-inner > ul > li.k-state-active > a {
+                                color: rgb(43, 20, 184);
+                              }
+                              /***************/
+                              /* neo sub nav */
+                              /***************/
+                              #asset-1523914500404.sub-nav-fixed-plugin ul ul > li {
+                                width: 130px;
+                              }
+                              #asset-1523914500404 ul ul > li {
+                                padding-top: 6px;
+                                padding-right: 22px;
+                                padding-bottom: 6px;
+                                padding-left: 22px;
+                                margin-bottom: 0;
+                                background-color: rgb(236, 236, 236);
+                                font-style: normal;
+                                font-weight: bold;
+                                font-size: 14px;
+                                font-family: "Open Sans", serif;
+                                text-align: center;
+
+                                border-left-color: rgb(51, 51, 51);
+                                border-left-style: none;
+                                border-left-width: 0;
+                                border-right-color: rgb(51, 51, 51);
+                                border-right-style: none;
+                                border-right-width: 0;
+                                border-bottom-color: rgb(0, 0, 0);
+                                border-bottom-style: solid;
+                                border-bottom-width: 2px;
+                                border-top-color: rgb(51, 51, 51);
+                                border-top-style: none;
+                                border-top-width: 0;
+                                border-top-left-radius:0;
+                                border-top-right-radius:0;
+                                border-bottom-left-radius:0;
+                                border-bottom-right-radius:0;
+
+                                -moz-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                -webkit-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                              }
+                              #asset-1523914500404 ul ul > li > a {
+                                color: rgb(91, 96, 95);
+                              }
+                              #asset-1523914500404 ul ul > li.k-state-hover {
+                                padding-top: 6px;
+                                padding-right: 22px;
+                                padding-bottom: 6px;
+                                padding-left: 22px;
+                                background-color: rgb(245, 237, 179);
+                                font-style: normal;
+                                font-weight: bold;
+                                font-size: 14px;
+                                font-family: "Open Sans", serif;
+                                text-align: center;
+
+                                border-left-color: rgb(46, 179, 166);
+                                border-left-style: none;
+                                border-left-width: 0;
+                                border-right-color: rgb(46, 179, 166);
+                                border-right-style: none;
+                                border-right-width: 0;
+                                border-bottom-color: rgb(0, 0, 0);
+                                border-bottom-style: solid;
+                                border-bottom-width: 2px;
+                                border-top-color: rgb(46, 179, 166);
+                                border-top-style: none;
+                                border-top-width: 0;
+                                border-top-left-radius:0;
+                                border-top-right-radius:0;
+                                border-bottom-left-radius:0;
+                                border-bottom-right-radius:0;
+
+                                -moz-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                -webkit-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                              }
+                              #asset-1523914500404 ul ul > li.k-state-hover > a {
+                                color: rgb(84, 177, 186);
+                              }
+                              #asset-1523914500404 ul ul > li.k-state-active {
+                                padding-top: 6px;
+                                padding-right: 22px;
+                                padding-bottom: 6px;
+                                padding-left: 22px;
+                                background-color: rgb(199, 219, 240);
+                                font-style: normal;
+                                font-weight: bold;
+                                font-size: 14px;
+                                font-family: "Open Sans", serif;
+                                text-align: center;
+
+                                border-left-color: rgb(16, 196, 178);
+                                border-left-style: none;
+                                border-left-width: 0;
+                                border-right-color: rgb(16, 196, 178);
+                                border-right-style: none;
+                                border-right-width: 0;
+                                border-bottom-color: rgb(0, 0, 0);
+                                border-bottom-style: solid;
+                                border-bottom-width: 2px;
+                                border-top-color: rgb(16, 196, 178);
+                                border-top-style: none;
+                                border-top-width: 0;
+                                border-top-left-radius:0;
+                                border-top-right-radius:0;
+                                border-bottom-left-radius:0;
+                                border-bottom-right-radius:0;
+
+                                -moz-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                -webkit-box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                                box-shadow: 0 0 0 0 rgb(127, 127, 127),0 0 0 0 rgb(127, 127, 127) inset;
+                              }
+                              #asset-1523914500404 ul ul > li.k-state-active > a {
+                                color: rgb(43, 20, 184);
+                              }
+                          </style> 
+      <div class="neo-asset-inner" style="background-color: rgb(235, 236, 242); border-color: rgb(64, 49, 163); opacity: 1; border-style: none; border-width: 1px; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"> 
+       <ul class="neo-navigation-menu k-widget k-reset k-header k-menu k-menu-horizontal" data-kendo-menu="" data-k-orientation="'horizontal'" data-k-on-open="onKendoMenuOpen(kendoEvent)" data-k-on-select="onKendoMenuSelect(kendoEvent)" data-role="menu" role="menubar" tabindex="0"> 
+        <li class="k-item k-state-default k-first ng-scope" id="page-10839164-1077429838332" role="menuitem"><a class="k-link" href="index.html">HOME</a></li> 
+        <li class="k-item k-state-default ng-scope" id="page-10839162-296472929004" role="menuitem"><a class="k-link" href="about.html">ABOUT US</a></li> 
+        <li class="k-item k-state-default ng-scope" id="page-10839165-188586881147" role="menuitem"><a class="k-link" href="gallery.html">GALLERY</a></li> 
+        <li class="k-item k-state-default ng-scope" id="page-11088084-595767367842" role="menuitem"><a class="k-link" href="core-types.html">CORE TYPES</a></li> 
+        <li class="k-item k-state-default ng-scope" id="page-10855864-1292856988996" role="menuitem"><a class="k-link" href="cut-sheets.html">CUT SHEETS</a></li> 
+        <li class="k-item k-state-default ng-scope" id="page-10898354-1188898438503" role="menuitem"><a class="k-link" href="warranty.html">WARRANTY</a></li> 
+        <li class="k-item k-state-default ng-scope" id="page-10839163-522107212582" role="menuitem"><a class="k-link" href="contact.html">CONTACT US</a></li> 
+        <li class="k-item k-state-default k-last ng-scope k-state-active selected-page k-state-highlight" id="page-11189836-921393338844" role="menuitem"><a class="k-link" href="forms-calculators.html">FORMS /CALCULATORS</a></li> 
+       </ul> 
+      </div> 
+     </div> 
+     <div class="text-plugin neo-asset" style="width: 548px; position: absolute; height: 43px; left: 210px; z-index: 351; top: 108px;" id="asset-1524172001609" data-module-class="neo.TextModule" data-region="header" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#bbbaba&quot;,&quot;borderLeftColor&quot;:&quot;#bbbaba&quot;,&quot;borderBottomColor&quot;:&quot;#bbbaba&quot;,&quot;borderRightColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();"> 
+      <div class="neo-asset-inner mCS_destroyed" style="background-color: rgba(255, 255, 255, 0); position: relative; border-color: rgb(187, 186, 186); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;" id="asset-1524172001609-neo-asset-inner" spellcheck="false"> 
+       <h5><span style="font-size: 36px; font-family: 'Times New Roman', Times, serif;"><span style="color: #555570;"><span>Nightingale <span>A</span>rchitectural</span>&nbsp;Doors, Inc.</span></span></h5> 
+      </div> 
+     </div> 
+     <div class="neo-asset box-plugin" style="height: 169px; z-index: 103; position: absolute; width: 963px; left: -1px; top: 0px;" data-module-class="neo.BoxModule" id="asset-1523887704279" data-region="header" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#333333&quot;,&quot;borderLeftColor&quot;:&quot;#333333&quot;,&quot;borderBottomColor&quot;:&quot;#333333&quot;,&quot;borderRightColor&quot;:&quot;#333333&quot;,&quot;borderAllColor&quot;:&quot;#333333&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgb(237, 229, 216)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}"> 
+      <div class="neo-asset-inner header-bg" style="background-color: rgb(237, 229, 216); opacity: 1; border-style: none; border-color: rgb(51, 51, 51); background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"> 
+      </div> 
+     </div> 
+     <div class="box-plugin neo-asset" style="z-index: 349; height: 31px; position: absolute; width: 963px; left: -1px; top: 162px;" id="asset-1524681825012" data-module-class="neo.BoxModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#333333&quot;,&quot;borderLeftColor&quot;:&quot;#333333&quot;,&quot;borderBottomColor&quot;:&quot;#333333&quot;,&quot;borderRightColor&quot;:&quot;#333333&quot;,&quot;borderAllColor&quot;:&quot;#333333&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgb(235, 236, 242)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" data-region="header"> 
+      <div class="neo-asset-inner" style="background-color: rgb(235, 236, 242); opacity: 1; border-style: none; border-color: rgb(51, 51, 51); background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"></div> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="global-region center" id="content"> 
+    <div class="global-region-inner" style="position: relative; margin: 0px auto; height: 1260px; width: 962px;" id="dupl-2024759734218991"> 
+     <div class="neo-asset text-plugin" style="z-index: 118; width: 567px; position: absolute; left: 194px; top: 104px; height: 53px;" data-module-class="neo.TextModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#bbbaba&quot;,&quot;borderLeftColor&quot;:&quot;#bbbaba&quot;,&quot;borderBottomColor&quot;:&quot;#bbbaba&quot;,&quot;borderRightColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" id="dupl-2024759734219975" data-region="content" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();"> 
+      <div class="neo-asset-inner mCS_destroyed" style="background-color: rgba(255, 255, 255, 0); position: relative; border-color: rgb(187, 186, 186); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;" id="dupl-2024759734221237" spellcheck="false"> 
+       <h3 class="color3" id="dupl-2024759734222166" style="text-align: center;"><span style="font-size: 18px; color: #062696;" id="dupl-2024759734223237"><span id="dupl-2024759734224270">T</span>o Download&nbsp;information<span>,</span> click on the required document below</span></h3> 
+      </div> 
+     </div> 
+     <div class="neo-asset filedownloadlink-plugin" style="position: absolute; top: 398px; left: 218px; width: 225px; z-index: 393;" data-url="//users.neo.registeredsite.com/0/6/9/21609960/assets/Detailing_Sheet.xls" id="asset-1528752010636" data-module-class="neo.FileDownloadLinkModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:null,&quot;borderBottomStyle&quot;:null,&quot;borderLeftStyle&quot;:null,&quot;borderRightStyle&quot;:null,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#30a0cd&quot;,&quot;borderLeftColor&quot;:&quot;#30a0cd&quot;,&quot;borderBottomColor&quot;:&quot;#30a0cd&quot;,&quot;borderRightColor&quot;:&quot;#30a0cd&quot;,&quot;borderAllColor&quot;:&quot;#30a0cd&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}"> 
+      <div class="neo-asset-inner" style="background-color: rgba(255, 255, 255, 0); border-color: rgb(48, 160, 205); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"> 
+       <a href="//users.neo.registeredsite.com/0/6/9/21609960/assets/Detailing_Sheet.xls"> 
+        <div id="neo-asset-display-text">
+          Detailing Sheet (Excel) 
+        </div></a> 
+      </div> 
+     </div> 
+     <div class="neo-asset text-plugin" style="z-index: 118; height: auto; position: absolute; top: 54px; left: 416px; width: 126px;" data-module-class="neo.TextModule" data-region="content" id="asset-1528752094909" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();"> 
+      <div class="neo-asset-inner mCS_destroyed" style="background-color: rgba(255, 255, 255, 0); position: relative; border-color: rgb(187, 186, 186); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;" id="asset-1528752094909-neo-asset-inner" spellcheck="false"> 
+       <h3 class="color3" id="dupl-2024759734222166"><span style="font-size: 36px; color: #062696;" id="dupl-2024759734223237">FORMS</span></h3> 
+      </div> 
+     </div> 
+     <div class="neo-asset text-plugin" style="z-index: 118; width: 534px; height: auto; position: absolute; top: 216px; left: 212px;" data-module-class="neo.TextModule" data-region="content" id="asset-1528809585927" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:null,&quot;borderBottomStyle&quot;:null,&quot;borderLeftStyle&quot;:null,&quot;borderRightStyle&quot;:null,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#bbbaba&quot;,&quot;borderLeftColor&quot;:&quot;#bbbaba&quot;,&quot;borderBottomColor&quot;:&quot;#bbbaba&quot;,&quot;borderRightColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;NaNpx NaNpx 0 0 undefined&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100}" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();"> 
+      <div class="neo-asset-inner mCS_destroyed" style="background-color: rgba(255, 255, 255, 0); position: relative; border-color: rgb(187, 186, 186); opacity: 1; border-style: none; background-image: none;" id="asset-1528809585927-neo-asset-inner" spellcheck="false"> 
+       <h6 class="color3" id="dupl-2024759734222166" style="text-align: center;"><span style="font-size: 24px; color: #062696;" id="dupl-2024759734223237"><span id="dupl-2024759734224270">DOOR INFORMATION</span></span></h6> 
+       <div style="line-height: 0.8;"> 
+        <span style="font-size: 8px; color: #062696;">&nbsp;</span> 
+       </div> 
+       <h6 class="color3"><span style="font-size: 18px; color: #062696;" id="dupl-2024759734223237"><span id="dupl-2024759734224270">The Detailing Sheet download is&nbsp;an Excel document that will allow you to enter the information we need for manufacturing your doors. Select&nbsp;the PDF file to fill in the information by hand, or&nbsp;select the Excel file to fill in the information using the Excel program.</span></span></h6> 
+      </div> 
+     </div> 
+     <div class="neo-asset filedownloadlink-plugin" style="height: 29px; position: absolute; top: 430px; left: 218px; width: 216px; z-index: 396;" data-url="//users.neo.registeredsite.com/0/6/9/21609960/assets/Detailing_Sheet30896.pdf" id="asset-1528810540136" data-module-class="neo.FileDownloadLinkModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:null,&quot;borderBottomStyle&quot;:null,&quot;borderLeftStyle&quot;:null,&quot;borderRightStyle&quot;:null,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#30a0cd&quot;,&quot;borderLeftColor&quot;:&quot;#30a0cd&quot;,&quot;borderBottomColor&quot;:&quot;#30a0cd&quot;,&quot;borderRightColor&quot;:&quot;#30a0cd&quot;,&quot;borderAllColor&quot;:&quot;#30a0cd&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}"> 
+      <div class="neo-asset-inner" style="background-color: rgba(255, 255, 255, 0); opacity: 1; border-style: none; border-color: rgb(48, 160, 205); background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"> 
+       <a href="//users.neo.registeredsite.com/0/6/9/21609960/assets/Detailing_Sheet30896.pdf"> 
+        <div id="neo-asset-display-text">
+          Detailing Sheet (PDF) 
+        </div></a> 
+      </div> 
+     </div> 
+     <div class="neo-asset text-plugin" style="z-index: 118; height: auto; position: absolute; top: 525px; left: 213px; width: 533px;" data-module-class="neo.TextModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#bbbaba&quot;,&quot;borderLeftColor&quot;:&quot;#bbbaba&quot;,&quot;borderBottomColor&quot;:&quot;#bbbaba&quot;,&quot;borderRightColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" data-region="content" id="asset-1528810991959" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();"> 
+      <div class="neo-asset-inner mCS_destroyed" style="background-color: rgba(255, 255, 255, 0); position: relative; border-color: rgb(187, 186, 186); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;" id="asset-1528810991959-neo-asset-inner" spellcheck="false"> 
+       <h3 class="color3" id="dupl-2024759734222166" style="text-align: center;"><span style="font-size: 24px; font-family: inherit; color: #062696;">DOOR WEIGHT CALCULATOR</span></h3> 
+       <p><span style="font-size: 18px; color: #062696;"><span><span style="font-family: inherit;"><li>Enter the door size (in inches) and select your core and thickness options.<br>
+          The approximate weight of the door (in pounds) will be shown.</li><li>Please type in <b>whole numbers</b> only.<br>
+          Use the dropdown on the right to select fractions of inches.</li></span></span></span></p><table id="widthlength" style="margin-left: auto; margin-right: auto; width: 20em;">
+      <tbody>
+        <tr data-role="none">
+        </tr>
+        <tr>
+          <td>
+            Door Width:
+          </td>
+          <td>
+            <input type="number" id="widthnum" onchange="ValidateWidth();" style="width: 7em" />
+            <select name="width" id="width" style="width: 3.5em">
+              <option value="0" selected>-</option>
+              <option value="1">1&#47;4</option>
+              <option value="2">3&#47;8</option>
+              <option value="3">1&#47;2</option>
+              <option value="4">3&#47;4</option>
+            </select> inches
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Door Length:
+          </td>
+	  <td>
+            <input type="number" id="lengthnum" onchange="ValidateLength();" style="width: 7em" />
+            <select name="length" id="length" style="width: 3.5em">
+              <option value="0" selected>-</option>
+              <option value="1">1&#47;4</option>
+              <option value="2">3&#47;8</option>
+              <option value="3">1&#47;2</option>
+              <option value="4">3&#47;4</option>
+            </select> inches
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="radios" style="margin-left: auto; margin-right: auto; width: 20em;>
+      <tbody>
+        <tr data-role="none">
+        </tr>
+        <tr>
+          <fieldset style="margin-left: auto; margin-right: auto; width: 20em;">
+            <legend>
+              Door Core:
+            </legend>
+            <div style="line-height: 1.3em; margin-left: auto; margin-right: auto; width: 20em;">
+              <span style="display: inline-block; width: 5.5em;">
+                <input type="radio" id="pbc" name="core" value="0" checked />
+                <label for="pbc">
+                  PBC
+                </label>
+              </span>
+              <span style="display: inline-block; width: 5.5em;">
+                <input type="radio" id="stave" name="core" value="1" />
+                <label for="stave">
+                  Stave
+                </label>
+              </span>
+              <span style="display: inline-block; width: 7em;">
+                <input type="radio" id="timber" name="core" value="2" />
+                <label for="timber">
+                  Timberstrand
+                </label>
+              </span>
+            </div>
+          </fieldset>
+        </tr>
+        <tr>
+          <fieldset style="margin-left: auto; margin-right: auto; width: 20em;">
+            <legend>
+              Door Thickness:
+            </legend>
+            <div style="line-height: 1.3em; margin-left: auto; margin-right: auto; width: 20em;">
+              <span style="display: inline-block; width: 5.5em;">
+                <input type="radio" id="134" name="thick" value="0" checked />
+                <label for="134">
+                  1-3&#47;4&#34;
+                </label>
+              </span>
+              <span style="display: inline-block; width: 5.5em;">
+                <input type="radio" id="214" name="thick" value="1" />
+                <label for="214">
+                  2-1&#47;4&#34;
+                </label>
+              </span>
+              <span style="display: inline-block; width: 7em;">
+                <input type="radio" id="138" name="thick" value="2" />
+                <label for="138">
+                  1-3&#47;8&#34;
+                </label>
+              </span>
+            </div>
+          </fieldset>
+        </tr>
+      </tbody>
+    </table>
+    <table id="lead" style="margin-left: auto; margin-right: auto; width: 20em;>
+      <tbody>
+        <tr data-role="none">
+        </tr>
+        <tr>
+          <td>
+            Lead Adder:
+          </td>
+          <td>
+            <select name="adder" id="adder" style="width: 4em; margin-right: 9em;">
+              <option value="0" selected>No</option>
+              <option value="1">Yes</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="calc" style="margin-left: auto; margin-right: auto; width: 20em; line-height: 3em;>
+      <tbody>
+        <tr data-role="none">
+        </tr>
+        <tr>
+          <td class="calcbutton" style="margin-left: auto; margin-right: auto; width: 20em; padding-top: 1em; padding-bottom: 2em;">
+            <input class="button" style="width:140px; margin-left: 7em; margin-right: auto; line-height: 3em;" type="button" id="postcalculate" value="Calculate" onclick="Calculate();" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="result" style="margin-left: auto; margin-right: auto; width: 20em;>
+      <tbody>
+        <tr data-role="none">
+        </tr>
+        <tr>
+          <td id="weight">
+            Door Weight:
+          </td>
+          <td>
+            <input type="text" id="weightfield" disabled="" style="background-color:#eeeeee; color:#000; width: 7em;" />‍ pounds
+          </td>
+        </tr>
+      </tbody>
+    </table>
+      </div> 
+     </div> 
+     <div class="box-plugin neo-asset" style="width: 583px; z-index: 101; position: absolute; top: 195px; left: 188px; height: 292px;" id="asset-1528812356105" data-module-class="neo.BoxModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:null,&quot;borderBottomStyle&quot;:null,&quot;borderLeftStyle&quot;:null,&quot;borderRightStyle&quot;:null,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#333333&quot;,&quot;borderLeftColor&quot;:&quot;#333333&quot;,&quot;borderBottomColor&quot;:&quot;#333333&quot;,&quot;borderRightColor&quot;:&quot;#333333&quot;,&quot;borderAllColor&quot;:&quot;#333333&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(238,238,238,1)&quot;,&quot;backgroundOpacity&quot;:&quot;80&quot;,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}"> 
+      <div class="neo-asset-inner" style="background-color: rgb(238, 238, 238); opacity: 0.8; border-style: none; border-color: rgb(51, 51, 51); background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"></div> 
+     </div> 
+     <div class="box-plugin neo-asset" style="width: 583px; z-index: 101; position: absolute; top: 512px; left: 189px; height: 195px;" data-module-class="neo.BoxModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:null,&quot;borderBottomStyle&quot;:null,&quot;borderLeftStyle&quot;:null,&quot;borderRightStyle&quot;:null,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#333333&quot;,&quot;borderLeftColor&quot;:&quot;#333333&quot;,&quot;borderBottomColor&quot;:&quot;#333333&quot;,&quot;borderRightColor&quot;:&quot;#333333&quot;,&quot;borderAllColor&quot;:&quot;#333333&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgb(238, 238, 238)&quot;,&quot;backgroundOpacity&quot;:&quot;80&quot;,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" id="asset-1529005977549"> 
+      <div class="neo-asset-inner" style="background-color: rgb(238, 238, 238); opacity: 0.8; border-style: none; border-color: rgb(51, 51, 51); background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"></div> 
+     </div> 
+     <div class="text-plugin neo-asset" style="z-index: 382; height: 27px; position: absolute; top: 481px; left: 188px; width: 581px;" data-module-class="neo.TextModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#bbbaba&quot;,&quot;borderLeftColor&quot;:&quot;#bbbaba&quot;,&quot;borderBottomColor&quot;:&quot;#bbbaba&quot;,&quot;borderRightColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" id="asset-1528813579092" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();"> 
+      <div class="neo-asset-inner mCS_destroyed" style="background-color: rgba(255, 255, 255, 0); position: relative; border-color: rgb(187, 186, 186); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;" id="" spellcheck="false"> 
+       <h5 style="text-align: center;" id="dupl-910455775641896"><span style="color: #064a8a;" id="dupl-910455775642872">__________________________</span></h5> 
+      </div> 
+     </div> 
+     <div class="text-plugin neo-asset" style="z-index: 382; height: 27px; position: absolute; width: 581px; top: 708px; left: 191px;" data-module-class="neo.TextModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#bbbaba&quot;,&quot;borderLeftColor&quot;:&quot;#bbbaba&quot;,&quot;borderBottomColor&quot;:&quot;#bbbaba&quot;,&quot;borderRightColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" id="asset-1530937987851" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();"> 
+      <div class="neo-asset-inner mCS_destroyed" style="background-color: rgba(255, 255, 255, 0); position: relative; border-color: rgb(187, 186, 186); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;" id="" spellcheck="false"> 
+       <h5 style="text-align: center;" id="dupl-910455775641896"><span style="color: #064a8a;" id="dupl-910455775642872">__________________________</span></h5> 
+      </div> 
+     </div> 
+     <div class="box-plugin neo-asset" style="width: 962px; z-index: 100; position: absolute; top: 18px; left: 0px; height: 1233px;" id="asset-1528751218916" data-module-class="neo.BoxModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#333333&quot;,&quot;borderLeftColor&quot;:&quot;#333333&quot;,&quot;borderBottomColor&quot;:&quot;#333333&quot;,&quot;borderRightColor&quot;:&quot;#333333&quot;,&quot;borderAllColor&quot;:&quot;#333333&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:18,&quot;paddingRight&quot;:18,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgb(239, 255, 255)&quot;,&quot;backgroundOpacity&quot;:&quot;60&quot;,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" data-region="content"> 
+      <div class="neo-asset-inner" style="background-color: rgb(239, 255, 255); border-color: rgb(51, 51, 51); opacity: 0.6; border-style: none; padding-left: 18px; padding-right: 18px; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"></div> 
+     </div> 
+     <div class="neo-asset text-plugin" style="z-index: 118; position: absolute; top: 772px; left: 229px; width: 507px; height: auto;" data-module-class="neo.TextModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#bbbaba&quot;,&quot;borderLeftColor&quot;:&quot;#bbbaba&quot;,&quot;borderBottomColor&quot;:&quot;#bbbaba&quot;,&quot;borderRightColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" data-region="content" id="asset-1530938049045" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();"> 
+      <div class="neo-asset-inner mCS_destroyed" style="background-color: rgba(255, 255, 255, 0); position: relative; border-color: rgb(187, 186, 186); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;" id="asset-1530938049045-neo-asset-inner" spellcheck="false"> 
+       <div class="color3" style="text-align: center; line-height: 1.2;"> 
+        <span style="font-size: 24px; font-family: inherit; color: #062696;">CALCULATOR</span> 
+       </div> 
+       <div class="color3" id="dupl-2024759734222166" style="text-align: center; line-height: 1.2;"> 
+        <span style="font-size: 18px; font-family: inherit; color: #062696;">LOCK BORE TO CUTOUT MEASUREMENT</span> 
+       </div> 
+       <div class="color3" style="text-align: center; line-height: 1.2;"> 
+        <span style="font-size: 18px; font-family: inherit; color: #062696;">LITE VISIBLE GLASS AFF MEASUREMENT</span> 
+       </div> 
+       <h3 class="color3" style="text-align: center;"></h3> 
+       <p><span style="font-size: 18px; color: #062696;"><span><span style="font-family: inherit;"></span></span></span></p> 
+       <p><span style="font-size: 18px; color: #062696;"><span><span style="font-family: inherit;">Just download the program below. Enter the appropriate information&nbsp;(in inches). The distance between the lock bore and cutout (lite)&nbsp;will be shown.&nbsp; </span></span></span></p> 
+       <p><span style="font-size: 18px; color: #062696;"><span><span style="font-family: inherit;">The distance between the visible glass and the finished floor, AFF (Above Finished Floor) is also be shown.</span></span></span></p> 
+       <p><span style="font-size: 18px; color: #062696;"><span><span style="font-family: inherit;">&nbsp;</span></span></span></p> 
+       <p><span color="#062696" style="color: #062696;"><span style="font-size: 18px;">If you wish to use a more deluxe calculator that indicates whether the lock and lite locations are ADA compliant and the spacing between lite and lock are in compliance with Labeled Fire Door specs, please download the file below.</span></span></p> 
+       <p></p> 
+      </div> 
+     </div> 
+     <div class="neo-asset filedownloadlink-plugin" style="position: absolute; width: 522px; height: 30px; top: 983px; left: 216px; z-index: 398;" data-url="//users.neo.registeredsite.com/0/6/9/21609960/assets/Calculator_-_Hole_to_Lite_Distance__website__prot40437.xlsx" id="asset-1530941370236" data-module-class="neo.FileDownloadLinkModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:null,&quot;borderBottomStyle&quot;:null,&quot;borderLeftStyle&quot;:null,&quot;borderRightStyle&quot;:null,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#30a0cd&quot;,&quot;borderLeftColor&quot;:&quot;#30a0cd&quot;,&quot;borderBottomColor&quot;:&quot;#30a0cd&quot;,&quot;borderRightColor&quot;:&quot;#30a0cd&quot;,&quot;borderAllColor&quot;:&quot;#30a0cd&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" data-region="content"> 
+      <div class="neo-asset-inner" style="background-color: rgba(255, 255, 255, 0); border-color: rgb(48, 160, 205); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"> 
+       <a href="//users.neo.registeredsite.com/0/6/9/21609960/assets/Calculator_-_Hole_to_Lite_Distance__website__prot40437.xlsx"> 
+        <div id="neo-asset-display-text">
+          Distance between lock bore and lite cutout (Excel) 
+        </div></a> 
+      </div> 
+     </div> 
+     <div class="box-plugin neo-asset" style="z-index: 101; width: 585px; position: absolute; top: 743px; left: 188px; height: 470px;" data-module-class="neo.BoxModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:null,&quot;borderBottomStyle&quot;:null,&quot;borderLeftStyle&quot;:null,&quot;borderRightStyle&quot;:null,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#333333&quot;,&quot;borderLeftColor&quot;:&quot;#333333&quot;,&quot;borderBottomColor&quot;:&quot;#333333&quot;,&quot;borderRightColor&quot;:&quot;#333333&quot;,&quot;borderAllColor&quot;:&quot;#333333&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgb(238, 238, 238)&quot;,&quot;backgroundOpacity&quot;:&quot;80&quot;,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" id="asset-1530937994381" data-region="content"> 
+      <div class="neo-asset-inner" style="background-color: rgb(238, 238, 238); border-color: rgb(51, 51, 51); opacity: 0.8; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"></div> 
+     </div> 
+     <div class="neo-asset filedownloadlink-plugin" style="z-index: 399; position: absolute; top: 1131px; left: 232px; width: 484px;" data-url="//users.neo.registeredsite.com/0/6/9/21609960/assets/Calculator_-_Lock_to_Lite_Clearance_and_ADA_-_08-08-18.xlsx" id="asset-1533750810661" data-module-class="neo.FileDownloadLinkModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:null,&quot;borderBottomStyle&quot;:null,&quot;borderLeftStyle&quot;:null,&quot;borderRightStyle&quot;:null,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#30a0cd&quot;,&quot;borderLeftColor&quot;:&quot;#30a0cd&quot;,&quot;borderBottomColor&quot;:&quot;#30a0cd&quot;,&quot;borderRightColor&quot;:&quot;#30a0cd&quot;,&quot;borderAllColor&quot;:&quot;#30a0cd&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}"> 
+      <div class="neo-asset-inner" style="background-color: rgba(255, 255, 255, 0); border-color: rgb(48, 160, 205); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;"> 
+       <a href="//users.neo.registeredsite.com/0/6/9/21609960/assets/Calculator_-_Lock_to_Lite_Clearance_and_ADA_-_08-08-18.xlsx"> 
+        <div id="neo-asset-display-text">
+          Deluxe Worksheet showing Lite, Lock, ADA Distances and Fire Door Compliance 
+        </div></a> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="global-region bottom" id="footer"> 
+    <div class="global-region-inner" style="position: relative; margin: 0px auto; height: 84px; width: 962px;"> 
+     <div class="text-plugin neo-asset" style="width: 544px; z-index: 368; position: absolute; left: 184px; top: 0px; height: 23px;" id="asset-1525377990504" data-module-class="neo.TextModule" data-settings="{&quot;css&quot;:{&quot;borderTopStyle&quot;:&quot;none&quot;,&quot;borderBottomStyle&quot;:&quot;none&quot;,&quot;borderLeftStyle&quot;:&quot;none&quot;,&quot;borderRightStyle&quot;:&quot;none&quot;,&quot;borderAllStyle&quot;:&quot;none&quot;,&quot;borderAllWidth&quot;:&quot;&quot;,&quot;borderTopWidth&quot;:&quot;&quot;,&quot;borderBottomWidth&quot;:&quot;&quot;,&quot;borderLeftWidth&quot;:&quot;&quot;,&quot;borderRightWidth&quot;:&quot;&quot;,&quot;borderTopColor&quot;:&quot;#bbbaba&quot;,&quot;borderLeftColor&quot;:&quot;#bbbaba&quot;,&quot;borderBottomColor&quot;:&quot;#bbbaba&quot;,&quot;borderRightColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllColor&quot;:&quot;#bbbaba&quot;,&quot;borderAllRadius&quot;:null,&quot;borderTopLeftRadius&quot;:&quot;&quot;,&quot;borderTopRightRadius&quot;:&quot;&quot;,&quot;borderBottomLeftRadius&quot;:&quot;&quot;,&quot;borderBottomRightRadius&quot;:&quot;&quot;,&quot;paddingAll&quot;:null,&quot;paddingTop&quot;:&quot;&quot;,&quot;paddingBottom&quot;:&quot;&quot;,&quot;paddingLeft&quot;:&quot;&quot;,&quot;paddingRight&quot;:&quot;&quot;,&quot;boxShadow&quot;:&quot;0px 0px 0 0 rgba(0,0,0,0.5)&quot;},&quot;bgColor&quot;:&quot;rgba(255, 255, 255, 0)&quot;,&quot;backgroundOpacity&quot;:100,&quot;shadowColor&quot;:&quot;rgba(0,0,0,0.5)&quot;,&quot;backgroundShadowAngle&quot;:140,&quot;backgroundShadowOffset&quot;:0}" data-region="footer" data-ng-controller="TextPluginController" data-ng-click="select();" data-ng-dblclick="selectAndEdit();"> 
+      <div class="neo-asset-inner mCS_destroyed" style="background-color: rgba(255, 255, 255, 0); position: relative; border-color: rgb(187, 186, 186); opacity: 1; border-style: none; background-image: none; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 0px;" id="asset-1525377990504-neo-asset-inner" spellcheck="false"> 
+       <p style="text-align: center;"><span style="color: #1a1d21;">P.O. Box 1056, Ennis, Texas&nbsp; 75120&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;sales@nightingaledoors.com</span></p> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <div id="bottom-area" style="height: 35px; width: 960px;" class=""></div> 
+ </div> 
+ <!--WSP_SC--> 
+ <script type="text/javascript">
+<!--
+document.write('<'+'img style="position:fixed;" src="//scorecard.wspisp.net/logger.php'+'?tag=dW5waWQ6MjE2MDk5NjA7MjE%3D&ref='+document.referrer+'&x='+Math.random()+'" '+'width="1" height="1" alt="" '+'>');
+//-->
+</script><img style="position:fixed;" src="//scorecard.wspisp.net/logger.php?tag=dW5waWQ6MjE2MDk5NjA7MjE%3D&amp;ref=https://www.nightingaledoors.com/&amp;x=0.2737316887900312" width="1" height="1" alt="" wqthooora=""> 
+ <noscript>
+  <img style="position:fixed;" src="//scorecard.wspisp.net/logger.php?tag=dW5waWQ6MjE2MDk5NjA7MjE%3D" width="1" height="1" alt="" />
+ </noscript> 
+ <!--/WSP_SC--> 
+
+</body></html>

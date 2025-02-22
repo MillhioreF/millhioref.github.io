@@ -1,0 +1,298 @@
+/*Make sure your selectors are very specific, you can accidentally overide builder css if you are not careful*/
+/*Do not edit positioning, width, height in CSS, set that in the markup*/
+/*CSS Changes, are somewhat permanent, user cannot change these, they can overide them via element inline style, but thats about it*/
+/* site */
+.colad.default .text-plugin {
+	font-family: 'Open Sans Regular', sans-serif;
+	font-size:14px;
+	font-weight:normal;
+	line-height:23px;
+	color:#bbbaba;
+}
+.colad.default .text-plugin p{
+	margin-top:0px;
+}
+.colad.default .center-align {
+	text-align: center;
+}
+.colad.default .right-align {
+	text-align: right;
+}
+/***** BACKGROUNDS *****/
+.colad.default.pagebg {
+	background-color: #1B98A6;
+}
+.colad.default .center-bg {
+	background-color: #FFF;
+}
+.colad.default .header-bg {
+	background-color: #FFF;
+}
+.colad.default .footer-bg {
+	background-color: #303148;
+}
+/***** HEADINGS *****/
+.colad.default h1, .colad.default h2, .colad.default h3, .colad.default h4, .colad.default h5, .colad.default h6 {
+	margin: 0px;
+	padding:0px;
+	font-weight: normal;
+	font-family: 'Open Sans', sans-serif;
+	color:#54B1BA;
+}
+.colad.default h1 {
+	font-size:80px;
+	line-height:80px;
+	letter-spacing:0px;
+}
+.colad.default h2 {
+	font-size:60px;
+	line-height:60px;
+	letter-spacing:0px;
+}
+.colad.default h3 {
+	font-size:40px;
+	line-height:44px;
+	letter-spacing:0px;
+}
+.colad.default h4 {
+	font-size:18px;
+	line-height:23px;
+	letter-spacing:0px;
+}
+.colad.default h5 {
+	font-size:16px;
+	letter-spacing:0px;
+}
+.colad.default h6 {
+	font-size:14px;
+	line-height:24px;
+	letter-spacing:0px;
+}
+/***** TEXT STYLES *****/
+.colad.default .footer-txt {
+	font-family: 'Open Sans', sans-serif;
+	font-size:14px;
+	line-height:17px;
+}
+.colad.default .comp-name {
+	font-family: 'Open Sans', sans-serif;
+	font-size:76px;
+	line-height:88px;
+	color:#a1a194;
+	font-weight:normal;
+}
+.colad.default .home-alt-heading {
+	font-size:20px;
+	line-height:23px;
+}
+.colad.default .home-alt-heading2 {
+	font-size:17px;
+	line-height:25px;
+}
+.colad.default .testimonial-txt {
+	font-size:14px;
+	font-weight:normal;
+	line-height:23px;
+	color:#bbbaba;
+}
+.colad.default .footer-alt-comp-name {
+	font-size:27px;
+	line-height:33px;
+}
+.colad.default .footer-alt-txt-sm {
+	font-size:12px;
+	line-height:33px;
+	color:#a1a194;
+}
+.colad.default .xlarge-digits{
+	font-family: 'Open Sans', sans-serif;
+	font-size:90px;
+	line-height:93px;
+}
+
+/***** LISTS *****/
+.colad.default .text-plugin li {
+	font-size:14px;
+	line-height:30px;
+	font-weight:normal;
+	letter-spacing:0px;
+	color:#bbbaba;
+}
+.colad.default .text-plugin .services-list li {
+	font-size:14px;
+	line-height:30px;
+	font-weight:normal;
+	letter-spacing:0px;
+	list-style-type:none;
+	list-style-image: url('assets/colad-list-bul.png');
+	padding:0px 5px;
+}
+/***** COLORS & BG-COLORS *****/
+.colad.default .color1 {
+	color: #FFF;
+}
+.colad.default .color1-bg {
+	background-color: #FFF;
+}
+.colad.default .color2 {
+	color: #000;
+}
+.colad.default .color2-bg {
+	background-color: #000;
+}
+.colad.default .color3 {
+	color: #54B1BA;
+}
+.colad.default .color3-bg {
+	background-color: #54B1BA;
+}
+.colad.default .color4 {
+	color:#2E3047;
+}
+.colad.default .color4-bg {
+	background-color: #2E3047;
+}
+.colad.default .color5 {
+	color:#ECECEC;
+}
+.colad.default .color5-bg {
+	background-color: #ECECEC;
+}
+.colad.default .color6 {
+	color:#5F5F5F;
+}
+.colad.default .color7 {
+	color:#9C9C9C;
+}
+.colad.default .color8 {
+	color:#a1a194;
+}
+.colad.default .color9 {
+	color:#5b605f;
+}
+/***** BORDERS *****/
+.colad.default .circle-border-radius {
+	border-radius:200px;
+}
+.colad.default .map-rounded {
+	border-radius:6px;
+}
+.colad.default .about-block-border {
+	border:1px solid #DDDDDD;
+}
+/****************/
+/* neo main nav */
+/****************/
+.colad.default .navigation-2-plugin .neo-asset-inner ul {
+	font-family: 'Open Sans', sans-serif;
+	font-weight:normal;
+}
+.colad.default .navigation-2-plugin .neo-asset-inner > ul > li {
+	padding:0px;
+	background-color: transparent;
+	border-radius:0px;
+	margin-right:23px;
+	margin-bottom:3px;
+	font-size: 14px;
+}
+.colad.default .navigation-2-plugin .neo-asset-inner > ul > li > a {
+	color: #5b605f;
+}
+.colad.default .navigation-2-plugin .neo-asset-inner > ul > li.k-state-hover {
+	font-size: 14px;
+	background-color: transparent;
+	border-radius:0px;
+}
+.colad.default .navigation-2-plugin .neo-asset-inner > ul > li.k-state-hover > a {
+	color: #54B1BA;
+}
+.colad.default .navigation-2-plugin .neo-asset-inner > ul > li.k-state-active {
+	font-size: 14px;
+	background-color: transparent;
+	border-radius:0px;
+}
+.colad.default .navigation-2-plugin .neo-asset-inner > ul > li.k-state-active > a {
+	color: #54B1BA;
+}
+/***************/
+/* neo sub nav */
+/***************/
+.colad.default .navigation-2-plugin ul ul > li {
+	font-family: 'Open Sans', serif;
+	padding:6px 22px 6px 22px;
+	background-color: #ECECEC;
+	font-size: 14px;
+	border-bottom:2px solid #000;
+	text-align:left;
+	margin-top:0px;
+}
+.colad.default .navigation-2-plugin ul ul > li > a {
+	color: #5b605f;
+}
+.colad.default .navigation-2-plugin ul ul > li.k-state-hover {
+	background-color: #303247;
+	font-size: 14px;
+	border-bottom:2px solid #000;
+	text-align:left;
+}
+.colad.default .navigation-2-plugin ul ul > li.k-state-hover > a {
+	color: #54B1BA;
+}
+.colad.default .navigation-2-plugin ul ul > li.k-state-active {
+	background-color: #303247;
+	font-size: 14px;
+	border-bottom:2px solid #000;
+	text-align:left;
+}
+.colad.default .navigation-2-plugin ul ul > li.k-state-active > a {
+	color: #54B1BA;
+}
+/*END NAV 2*/
+/* CONTACT */
+/*header*/
+
+/* labels style */
+.colad.default .web_com_custom_form label{
+	font-family: 'Open Sans', sans-serif;
+	font-size:14px;
+	font-weight:normal;
+	margin-bottom: 0;
+	color: #777;
+}
+
+/* first & last name */
+.colad.default .web_com_custom_form .FirstName label,
+.colad.default .web_com_custom_form .LastName label{
+	font-size: 12px !important;
+	color: #777;
+}
+/* inputs */
+.colad.default .web_com_custom_form input[type='text'],
+.colad.default .web_com_custom_form textarea{
+	border: 1px solid #d1d1d1;
+	border-radius: 0px;
+	background:  #fff; 
+}
+/* submit btn */
+.colad.default .web_com_custom_form input[type='submit']{
+	font-family: 'Open Sans', sans-serif;
+	color: #fff;
+	text-transform: to-uppercase;
+	background: #52B1BA; 
+	font-size: 19px;
+	padding: 8px 8px;
+	display: block;
+	margin: 0 auto;
+	border-radius: 0px;
+	border:0px;
+}
+/* textarea height */
+.colad.default textarea.form-element{
+	height: 60px;
+}
+/* form submission message color */
+.colad.default .form-result-ok {
+	font-family: 'Open Sans', sans-serif;
+	font-size:16px;
+	color:#444;
+}
