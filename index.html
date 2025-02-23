@@ -1,5 +1,6 @@
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans">
   <script type="text/javascript">
     function ValidateWidth() {
         Validate("widthnum");
@@ -58,14 +59,22 @@
     }
   </script>
 </head>
-<form style="margin-left: auto; margin-right: auto; width: 20em; border: solid 3px #1e90ff; border-radius:5px; padding:2px; margin: 2rem auto; width:100%; max-width:600px; line-height: 2em;" method="post" class="weightcalc">
+<body style="background-color: #1B98A6;">
+<form style="margin-left: auto; margin-right: auto; width: 20em; background-color:#dde9ea; max-width:600px; line-height: 2em;" method="post" class="weightcalc">
   <div class="cal_container">
     <div class="cal_instructions" style="line-height: 1.5em;">
-      <ul>
-        - Enter the door size (in inches) and select your core and thickness options.<br>
-        The approximate weight of the door (in pounds) will be shown.<br>
-        - Please type in <b>whole numbers</b> only.<br>
-        Use the dropdown on the right to select fractions of inches.
+      <ul style="font-size: 24px; font-family: inherit; color: #062696;">
+        DOOR WEIGHT CALCULATOR
+      </ul>
+      <ul style="font-size: 18px; font-family: inherit; color: #062696;>
+        <li>
+          Enter the door size (in inches) and select your core and thickness options.<br>
+         The approximate weight of the door (in pounds) will be shown.
+        </li>
+        <li>
+          Please type in <b>whole numbers</b> only.<br>
+          Use the dropdown on the right to select fractions of inches.
+        </li>
       </ul>
     </div>
     <table id="widthlength" style="margin-left: auto; margin-right: auto; width: 20em;">
@@ -211,4 +220,5 @@
     </table>
   </div>
 </form>
+</body>
 </html>
